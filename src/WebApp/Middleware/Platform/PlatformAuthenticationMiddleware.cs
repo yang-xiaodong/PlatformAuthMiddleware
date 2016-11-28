@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 
 
@@ -50,7 +48,7 @@ namespace WebApp.Middleware.Platform
                 Options.TicketDataFormat = new TicketDataFormat(dataProtector);
             }
             if (Options.CookieManager == null) {
-                Options.CookieManager = new Microsoft.AspNetCore.Authentication.Cookies.ChunkingCookieManager(urlEncoder);
+                Options.CookieManager = new ChunkingCookieManager();
             }
             if (!Options.LogoutPath.HasValue) {
                 Options.LogoutPath = PlatformAuthenticationDefaults.LogoutPath;
